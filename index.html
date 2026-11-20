@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Daftar Kerjaan Fokus</title>
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background-color: #f4f7f6;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .container {
+            background-color: #ffffff;
+            padding: 30px;
+            border-radius: 12px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+            width: 100%;
+            max-width: 450px;
+        }
+
+        h2 {
+            color: #333;
+            margin-bottom: 8px;
+            font-size: 24px;
+        }
+
+        p.subtitle {
+            color: #777;
+            font-size: 14px;
+            margin-bottom: 20px;
+        }
+
+        .input-box {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 20px;
+        }
+
+        input[type="text"] {
+            flex: 1;
+            padding: 12px;
+            border: 2px solid #e0e0e0;
+            border-radius: 8px;
+            font-size: 16px;
+            outline: none;
+            transition: border-color 0.2s;
+        }
+
+        input[type="text"]:focus {
+            border-color: #4a90e2;
+        }
+
+        button {
+            background-color: #4a90e2;
+            color: white;
+            border: none;
+            padding: 0 20px;
+            border-radius: 8px;
+            font-size: 16px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: background-color 0.2s;
+        }
+
+        button:hover {
+            background-color: #357abd;
+        }
+
+        ul {
+            list-style: none;
+        }
+
+        li {
+            display: flex;
+            align-items: center;
+            padding: 14px;
+            background-color: #f9f9f9;
+            border-radius: 8px;
+            margin-bottom: 10px;
+            border-left: 4px solid #4a90e2;
+            animation: fadeIn 0.3s ease;
+            transition: opacity 0.3s ease, transform 0.3s ease;
+        }
+
+        /* Efek animasi menghilang */
+        li.fade-out {
+            opacity: 0;
+            transform: translateX(30px);
+        }
+
+        .todo-text {
+            flex: 1;
+            font-size: 16px;
+            color: #444;
+            word-break: break-word;
+        }
+
+        .btn-done {
+            background-color: #2ecc71;
+            color: white;
+            padding: 6px 12px;
+            font-size: 13px;
+            border-radius: 6px;
+        }
+
+        .btn-done:hover {
+            background-color: #27ae60;
+        }
+
+        .empty-state {
+            text-align: center;
+            color: #aaa;
+            padding: 20px 0;
+            font-style: italic;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(-10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h2>Daftar Kerjaan Fokus</h2>
+    <p class="subtitle">Kerjaan yang selesai akan langsung menghilang.</p>
+
+    <div class="input-box">
+        <input type="text" id="todoInput" placeholder="Tulis kerjaan baru di sini..." autocomplete="off">
+        <button onclick="addTodo()">Tambah</button>
+    </div>
+
+    <ul id="todoList">
+        <!-- Daftar kerjaan akan muncul di sini -->
+    </ul>
+    
+    <div id="emptyMessage" class="empty-state">Belum ada kerjaan. Tetap tenang!</div>
+</div>
+
+<script>
+    const todoInput = document.getElementById('todoInput');
+    const todoList = document.getElementById('todoList');
+    const emptyMessage = document.getElementById('emptyMessage');
+
+    // Menambah tugas baru saat menekan tombol Enter
+    todoInput.addEventListener('keypress', function(e) {
+        if (e.key === 'Enter') {
+            addTodo();
+        }
+    });
+
+    function addTodo() {
+        const todoText = todoInput.value.trim();
+        
+        if (todoText === '') return;
+
+        // Sembunyikan pesan kosong
+        emptyMessage.style.display = 'none';
+
+        // Membuat elemen list baru
+        const li = document.createElement('li');
+        
+        const textSpan = document.createElement('span');
+        textSpan.className = 'todo-text';
+        textSpan.innerText = todoText;
+
+        const doneBtn = document.createElement('button');
+        doneBtn.className = 'btn-done';
+        doneBtn.innerText = 'Selesai';
+        
+        // Fungsi aksi ketika tombol "Selesai" diklik
+        doneBtn.onclick = function() {
+            li.classList.add('fade-out');
+            // Menunggu animasi selesai sebelum menghapus element dari layar
+            setTimeout(() => {
+                li.remove();
+                checkEmpty();
+            }, 300);
+        };
+
+        li.appendChild(textSpan);
+        li.appendChild(doneBtn);
+        todoList.appendChild(li);
+
+        // Kosongkan input kembali
+        todoInput.value = '';
+    }
+
+    // Memeriksa jika daftar sudah kosong untuk memunculkan teks penenang
+    function checkEmpty() {
+        if (todoList.children.length === 0) {
+            emptyMessage.style.display = 'block';
+        }
+    }
+</script>
+
+</body>
+</html>
