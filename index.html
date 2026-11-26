@@ -11,6 +11,8 @@
             background-color: #f4f5f0;
             background-image: radial-gradient(#d1d6c5 0.75px, transparent 0.75px);
             background-size: 16px 16px;
+            height: 100vh;
+            height: 100dvh; /* agar footer tidak tertutup bilah browser HP */
         }
         .washi-card {
             background-color: #fcfdf9;
@@ -38,11 +40,13 @@
             transform: rotate(-3deg);
             user-select: none;
         }
+        /* Teks panjang turun ke baris baru, tidak mendorong tombol keluar layar */
+        .nama-tugas { overflow-wrap: anywhere; }
     </style>
 </head>
-<body class="h-screen overflow-hidden flex flex-col text-[#273026]">
+<body class="overflow-hidden flex flex-col text-[#273026]">
 
-    <!-- Kepala Aplikasi Ramping & Tetap (Tidak Bergerak) -->
+    <!-- Kepala Aplikasi -->
     <header class="flex-none bg-[#2f523a] border-b-[3px] border-[#d4a338] text-[#fcfdf9] shadow-sm z-10">
         <div class="max-w-xl mx-auto px-3 py-2 text-center">
             <p class="text-[11px] font-medium text-[#fef3c7] tracking-wide mb-1">بِسْمِ اللَّهِ الرَّحْمَنِ الرَّحِيم</p>
@@ -55,13 +59,13 @@
         </div>
     </header>
 
-    <!-- Konten Utama: 3 Kotak Kategori Berbaris ke Bawah dengan Ukuran Sama & Menetap -->
-    <main class="flex-1 overflow-hidden w-full">
+    <!-- Konten Utama -->
+    <main class="flex-1 min-h-0 overflow-hidden w-full">
         <div class="max-w-xl mx-auto p-2 sm:p-3 h-full">
-            <div class="grid grid-rows-3 gap-2 h-full">
-                
-                <!-- Bagian 1: Penting -->
-                <div class="bg-[#eaeede]/75 border border-[#d5dcc8] rounded-xl p-2 flex flex-col min-h-0">
+            <!-- grid-cols-1 menjaga lebar kotak tidak melebihi layar -->
+            <div class="grid grid-cols-1 grid-rows-3 gap-2 h-full">
+
+                <div class="bg-[#eaeede]/75 border border-[#d5dcc8] rounded-xl p-2 flex flex-col min-h-0 min-w-0">
                     <div class="flex-none flex items-center gap-1.5 pb-1 mb-1.5 border-b border-[#d5dcc8]">
                         <span class="w-2.5 h-2.5 rounded-full bg-[#d9534f] flex-shrink-0"></span>
                         <h2 class="text-xs font-bold text-[#273026]">Penting</h2>
@@ -69,8 +73,7 @@
                     <div id="kolom-penting" class="flex-1 overflow-y-auto space-y-1.5 pr-0.5"></div>
                 </div>
 
-                <!-- Bagian 2: Sedang -->
-                <div class="bg-[#eaeede]/75 border border-[#d5dcc8] rounded-xl p-2 flex flex-col min-h-0">
+                <div class="bg-[#eaeede]/75 border border-[#d5dcc8] rounded-xl p-2 flex flex-col min-h-0 min-w-0">
                     <div class="flex-none flex items-center gap-1.5 pb-1 mb-1.5 border-b border-[#d5dcc8]">
                         <span class="w-2.5 h-2.5 rounded-full bg-[#e0a82e] flex-shrink-0"></span>
                         <h2 class="text-xs font-bold text-[#273026]">Sedang</h2>
@@ -78,8 +81,7 @@
                     <div id="kolom-sedang" class="flex-1 overflow-y-auto space-y-1.5 pr-0.5"></div>
                 </div>
 
-                <!-- Bagian 3: Opsional -->
-                <div class="bg-[#eaeede]/75 border border-[#d5dcc8] rounded-xl p-2 flex flex-col min-h-0">
+                <div class="bg-[#eaeede]/75 border border-[#d5dcc8] rounded-xl p-2 flex flex-col min-h-0 min-w-0">
                     <div class="flex-none flex items-center gap-1.5 pb-1 mb-1.5 border-b border-[#d5dcc8]">
                         <span class="w-2.5 h-2.5 rounded-full bg-[#b4bdae] flex-shrink-0"></span>
                         <h2 class="text-xs font-bold text-[#273026]">Opsional</h2>
@@ -91,31 +93,31 @@
         </div>
     </main>
 
-    <!-- Form Input Ringkas & Tetap di Bawah (Tidak Ikut Bergerak) -->
+    <!-- Form Input -->
     <section class="flex-none bg-[#eaeede] border-t border-[#c6cfb6] px-2.5 py-2 z-10 shadow-inner">
         <form id="formJadwal" class="max-w-xl mx-auto space-y-1.5">
             <div class="flex items-center gap-1.5">
                 <span class="text-[10px] font-bold text-[#2f523a] bg-[#fcfdf9] border border-[#d5dcc8] px-1.5 py-1 rounded flex-shrink-0" title="Buka Pintu Baru">門</span>
-                <input type="text" id="inputNama" required placeholder="Buka pintu baru... (Contoh: Selesaikan laporan)" 
+                <input type="text" id="inputNama" required placeholder="Buka pintu baru... (Contoh: Selesaikan laporan)"
                     class="flex-1 min-w-0 px-2.5 py-1.5 bg-[#fcfdf9] border border-[#c8d1b8] rounded-lg text-xs text-[#273026] placeholder-[#8b9687] focus:outline-none focus:border-[#2f523a]">
                 <button type="submit" class="bg-[#2f523a] hover:bg-[#233f2c] text-[#fcfdf9] font-semibold px-3 py-1.5 rounded-lg text-xs transition shadow-sm border-b-2 border-[#1a3021] whitespace-nowrap flex-shrink-0">
                     + Tambah
                 </button>
             </div>
-            
+
             <div class="grid grid-cols-3 gap-1.5">
-                <select id="inputKategori" class="px-1.5 sm:px-2 py-1 bg-[#fcfdf9] border border-[#c8d1b8] rounded-md text-[11px] text-[#273026] focus:outline-none focus:border-[#2f523a]">
+                <select id="inputKategori" class="min-w-0 px-1.5 sm:px-2 py-1 bg-[#fcfdf9] border border-[#c8d1b8] rounded-md text-[11px] text-[#273026] focus:outline-none focus:border-[#2f523a]">
                     <option value="penting">🔴 Penting</option>
                     <option value="sedang">🟡 Sedang</option>
                     <option value="opsional">⚪ Opsional</option>
                 </select>
-                <input type="date" id="inputTanggal" required title="Tenggang Tanggal" class="px-1.5 sm:px-2 py-1 bg-[#fcfdf9] border border-[#c8d1b8] rounded-md text-[11px] text-[#273026] focus:outline-none focus:border-[#2f523a]">
-                <input type="time" id="inputJam" required title="Tenggang Jam" class="px-1.5 sm:px-2 py-1 bg-[#fcfdf9] border border-[#c8d1b8] rounded-md text-[11px] text-[#273026] focus:outline-none focus:border-[#2f523a]">
+                <input type="date" id="inputTanggal" required title="Tenggang Tanggal" class="min-w-0 px-1.5 sm:px-2 py-1 bg-[#fcfdf9] border border-[#c8d1b8] rounded-md text-[11px] text-[#273026] focus:outline-none focus:border-[#2f523a]">
+                <input type="time" id="inputJam" required title="Tenggang Jam" class="min-w-0 px-1.5 sm:px-2 py-1 bg-[#fcfdf9] border border-[#c8d1b8] rounded-md text-[11px] text-[#273026] focus:outline-none focus:border-[#2f523a]">
             </div>
         </form>
     </section>
 
-    <!-- Bawah Aplikasi Ramping & Tetap (Tidak Bergerak) -->
+    <!-- Bawah Aplikasi -->
     <footer class="flex-none bg-[#1e2922] border-t-[3px] border-[#d4a338] text-[#cbd5c8] z-10">
         <div class="max-w-xl mx-auto px-3 py-2 relative flex items-center justify-center">
             <div class="text-center pr-8 sm:px-8">
@@ -125,17 +127,46 @@
         </div>
     </footer>
 
+    <!-- Jendela Edit -->
+    <div id="modalEdit" class="hidden fixed inset-0 z-50 bg-black/50 items-center justify-center p-4">
+        <form id="formEdit" class="w-full max-w-sm bg-[#fcfdf9] rounded-xl border-t-4 border-[#d4a338] p-4 space-y-3 shadow-xl">
+            <h3 class="text-sm font-bold text-[#2f523a]">Edit Tugas</h3>
+            <label class="block text-xs font-semibold">Nama tugas
+                <textarea id="editNama" required rows="3" class="mt-1 w-full px-2.5 py-2 border border-[#c8d1b8] rounded-lg text-base font-normal"></textarea>
+            </label>
+            <label class="block text-xs font-semibold">Status
+                <select id="editKategori" class="mt-1 w-full px-2 py-2 border border-[#c8d1b8] rounded-lg text-base font-normal bg-white">
+                    <option value="penting">🔴 Penting</option>
+                    <option value="sedang">🟡 Sedang</option>
+                    <option value="opsional">⚪ Opsional</option>
+                </select>
+            </label>
+            <div class="grid grid-cols-2 gap-2">
+                <label class="block min-w-0 text-xs font-semibold">Tanggal
+                    <input type="date" id="editTanggal" required class="mt-1 w-full min-w-0 px-2 py-2 border border-[#c8d1b8] rounded-lg text-base font-normal bg-white">
+                </label>
+                <label class="block min-w-0 text-xs font-semibold">Jam
+                    <input type="time" id="editJam" required class="mt-1 w-full min-w-0 px-2 py-2 border border-[#c8d1b8] rounded-lg text-base font-normal bg-white">
+                </label>
+            </div>
+            <div class="flex justify-end gap-2">
+                <button type="button" id="btnBatal" class="px-4 py-2 rounded-lg text-sm border border-[#c8d1b8]">Batal</button>
+                <button type="submit" class="px-4 py-2 rounded-lg text-sm font-semibold bg-[#2f523a] text-white">Simpan</button>
+            </div>
+        </form>
+    </div>
+
     <script>
+        const duaAngka = n => String(n).padStart(2, '0');
+
         function waktuSekarangSingkat() {
             const now = new Date();
-            const tgl = String(now.getDate()).padStart(2, '0');
-            const bln = String(now.getMonth() + 1).padStart(2, '0');
-            const jam = String(now.getHours()).padStart(2, '0');
-            const mnt = String(now.getMinutes()).padStart(2, '0');
-            return `${tgl}/${bln} ${jam}:${mnt}`;
+            return `${duaAngka(now.getDate())}/${duaAngka(now.getMonth() + 1)} ${duaAngka(now.getHours())}:${duaAngka(now.getMinutes())}`;
         }
 
-        const hariIniStr = new Date().toISOString().split('T')[0];
+        // Pakai tanggal lokal HP (bukan UTC), supaya pagi hari tidak terbaca "kemarin"
+        const skrg = new Date();
+        const hariIniStr = `${skrg.getFullYear()}-${duaAngka(skrg.getMonth() + 1)}-${duaAngka(skrg.getDate())}`;
 
         let jadwal = JSON.parse(localStorage.getItem('jadwal_simpel_v3')) || [
             { id: 1, nama: 'Selesaikan laporan utama', kategori: 'penting', dibuat: waktuSekarangSingkat(), tanggal: hariIniStr, jam: '10:00', selesai: false },
@@ -143,9 +174,10 @@
             { id: 3, nama: 'Rapikan folder arsip', kategori: 'opsional', dibuat: waktuSekarangSingkat(), tanggal: hariIniStr, jam: '16:30', selesai: false }
         ];
 
-        // Set default tanggal & jam hari ini
-        document.getElementById('inputTanggal').value = hariIniStr;
-        document.getElementById('inputJam').value = '09:00';
+        const $ = id => document.getElementById(id);
+
+        $('inputTanggal').value = hariIniStr;
+        $('inputJam').value = '09:00';
 
         function simpan() {
             localStorage.setItem('jadwal_simpel_v3', JSON.stringify(jadwal));
@@ -158,10 +190,8 @@
         }
 
         function tampilkan() {
-            const daftarKategori = ['penting', 'sedang', 'opsional'];
-
-            daftarKategori.forEach(kat => {
-                const wadah = document.getElementById('kolom-' + kat);
+            ['penting', 'sedang', 'opsional'].forEach(kat => {
+                const wadah = $('kolom-' + kat);
                 wadah.innerHTML = '';
 
                 const hasil = jadwal
@@ -175,40 +205,52 @@
 
                 hasil.forEach(item => {
                     const div = document.createElement('div');
-                    div.className = `washi-card px-2.5 py-2 rounded-lg flex items-center gap-2 transition ${item.selesai ? 'opacity-50' : ''}`;
-                    
-                    const infoDibuat = item.dibuat ? `${item.dibuat} | ` : '';
+                    div.className = `washi-card px-2.5 py-2 rounded-lg flex items-start gap-2 transition ${item.selesai ? 'opacity-50' : ''}`;
 
                     div.innerHTML = `
-                        <input type="checkbox" ${item.selesai ? 'checked' : ''} onchange="cekSelesai(${item.id})" 
-                            class="w-3.5 h-3.5 accent-[#2f523a] cursor-pointer flex-shrink-0">
-                        <p class="text-xs sm:text-sm font-medium text-[#273026] truncate flex-grow min-w-0 ${item.selesai ? 'line-through' : ''}">
-                            ${item.nama}
-                        </p>
-                        <span class="text-[10px] text-[#7c8a78] whitespace-nowrap flex-shrink-0">
-                            ${infoDibuat}<span class="text-[#4c594a] font-semibold">${formatTanggalSingkat(item.tanggal)} ${item.jam}</span>
-                        </span>
-                        <button onclick="hapus(${item.id})" title="Hapus" class="text-xs text-[#b5473c] hover:bg-[#f5ebe9] px-1.5 py-0.5 rounded flex-shrink-0">
-                            ✕
-                        </button>
+                        <input type="checkbox" ${item.selesai ? 'checked' : ''} onchange="cekSelesai(${item.id})"
+                            class="w-4 h-4 mt-0.5 accent-[#2f523a] cursor-pointer flex-shrink-0">
+                        <div class="flex-1 min-w-0">
+                            <p class="nama-tugas text-xs sm:text-sm font-medium text-[#273026] ${item.selesai ? 'line-through' : ''}"></p>
+                            <div class="flex flex-wrap items-center gap-x-2 gap-y-1 mt-1">
+                                <span class="text-[10px] text-[#7c8a78]">
+                                    ${item.dibuat ? item.dibuat + ' | ' : ''}<span class="text-[#4c594a] font-semibold">${formatTanggalSingkat(item.tanggal)} ${item.jam}</span>
+                                </span>
+                                <select onchange="pindah(${item.id}, this.value)" aria-label="Pindah status"
+                                    class="text-[10px] bg-[#eaeede] border border-[#c8d1b8] rounded px-1 py-0.5">
+                                    <option value="penting">🔴 Penting</option>
+                                    <option value="sedang">🟡 Sedang</option>
+                                    <option value="opsional">⚪ Opsional</option>
+                                </select>
+                            </div>
+                        </div>
+                        <button onclick="bukaEdit(${item.id})" title="Edit" aria-label="Edit"
+                            class="w-7 h-7 text-sm text-[#2f523a] hover:bg-[#eaeede] rounded flex-shrink-0">✎</button>
+                        <button onclick="hapus(${item.id})" title="Hapus" aria-label="Hapus"
+                            class="w-7 h-7 text-sm text-[#b5473c] hover:bg-[#f5ebe9] rounded flex-shrink-0">✕</button>
                     `;
+                    // textContent: tanda seperti < > pada nama tugas tidak merusak tampilan
+                    div.querySelector('.nama-tugas').textContent = item.nama;
+                    div.querySelector('select').value = item.kategori;
                     wadah.appendChild(div);
                 });
             });
         }
 
-        document.getElementById('formJadwal').addEventListener('submit', function(e) {
+        $('formJadwal').addEventListener('submit', function(e) {
             e.preventDefault();
+            const nama = $('inputNama').value.trim();
+            if (!nama) return;
             jadwal.push({
                 id: Date.now(),
-                nama: document.getElementById('inputNama').value.trim(),
-                kategori: document.getElementById('inputKategori').value,
+                nama,
+                kategori: $('inputKategori').value,
                 dibuat: waktuSekarangSingkat(),
-                tanggal: document.getElementById('inputTanggal').value,
-                jam: document.getElementById('inputJam').value,
+                tanggal: $('inputTanggal').value,
+                jam: $('inputJam').value,
                 selesai: false
             });
-            document.getElementById('inputNama').value = '';
+            $('inputNama').value = '';
             simpan();
             tampilkan();
         });
@@ -225,6 +267,49 @@
             simpan();
             tampilkan();
         };
+
+        window.pindah = function(id, kategori) {
+            const item = jadwal.find(i => i.id === id);
+            if (item) item.kategori = kategori;
+            simpan();
+            tampilkan();
+        };
+
+        let idEdit = null;
+
+        function tutupEdit() {
+            $('modalEdit').classList.replace('flex', 'hidden');
+            idEdit = null;
+        }
+
+        window.bukaEdit = function(id) {
+            const item = jadwal.find(i => i.id === id);
+            if (!item) return;
+            idEdit = id;
+            $('editNama').value = item.nama;
+            $('editKategori').value = item.kategori;
+            $('editTanggal').value = item.tanggal;
+            $('editJam').value = item.jam;
+            $('modalEdit').classList.replace('hidden', 'flex');
+        };
+
+        $('btnBatal').addEventListener('click', tutupEdit);
+
+        $('formEdit').addEventListener('submit', function(e) {
+            e.preventDefault();
+            const item = jadwal.find(i => i.id === idEdit);
+            const nama = $('editNama').value.trim();
+            if (!item || !nama) return;
+            Object.assign(item, {
+                nama,
+                kategori: $('editKategori').value,
+                tanggal: $('editTanggal').value,
+                jam: $('editJam').value
+            });
+            simpan();
+            tutupEdit();
+            tampilkan();
+        });
 
         tampilkan();
     </script>
